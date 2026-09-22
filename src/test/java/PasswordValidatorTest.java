@@ -1,5 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class PasswordValidatorTest {
 
@@ -15,6 +17,19 @@ class PasswordValidatorTest {
     @Test
     void isNotEmpty_shouldReturnFalse_byEmpty() {
         assertFalse(PasswordValidator.isNotEmpty(""));
+    }
+
+    //hasMinLength
+    @ParameterizedTest
+    @CsvSource({
+            "12345678, true",
+            "1234567, false",
+            " 1234567 , false",
+            " 123 4567 , true"
+
+    })
+    void hasMinLength_shouldReturnExpected_byInput(String input, boolean expected) {
+        assertEquals(expected, PasswordValidator.hasMinLength(input, 8));
     }
 }
 
