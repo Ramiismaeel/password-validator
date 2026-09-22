@@ -132,21 +132,5 @@ class PasswordValidatorTest {
         assertEquals(expected, PasswordValidator.containsSpecialChar(input));
     }
 
-
-    //validationResult
-    @ParameterizedTest
-    @CsvSource({
-            " , Your password is empty",
-            "wGerrwr@we44, your password is valid",
-            "wqerwr/we44, Your password hasn't both Uppercase & lowercase letters",
-            " Password123, Your password is weak (common)",
-            "12342342, Your password hasn't both Uppercase & lowercase letters",
-            "Password123, Your password is weak (common)",
-            "3qwQ13453, Your password has no special character",
-            "<ABC123456c>, your password is valid",
-    })
-    void validationResult_shouldReturnExpected_byInput(String input, String expected) {
-        assertEquals(expected, PasswordValidator.validationResult(input));
-    }
 }
 

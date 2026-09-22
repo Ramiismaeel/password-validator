@@ -1,16 +1,30 @@
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.Set;
+import java.security.SecureRandom;
+import java.util.*;
 
 public class PasswordValidator {
     static void main() {
-        System.out.println("Enter your password!");
         Scanner scanner = new Scanner(System.in);
-        String passwordInput = scanner.nextLine();
-        boolean validPassword = isValid(passwordInput);
-        String message = validationResult(passwordInput);
-        System.out.println(validPassword ? "Your password is valid.": "Your password is not valid.");
-        System.out.println(message);
+
+        boolean validPassword = false;
+
+        while (!validPassword) {
+            System.out.println("Enter your password!");
+            String passwordInput = scanner.nextLine();
+
+            validPassword = isValid(passwordInput);
+
+            if (!ValidationResult.isEmpty()) {
+                System.out.println(ValidationResult);
+                ValidationResult.clear();
+            }
+
+            if (validPassword) {
+                System.out.println("Your password is valid.");
+            } else {
+                System.out.println("Your password is not valid.");
+            }
+        }
+
         scanner.close();
 
     }
@@ -18,6 +32,13 @@ public class PasswordValidator {
     private static final Set<String> COMMON_PASSWORDS = Set.of("12345678", "password", "passwort", "adminadmin", "abc123456", "aa123456", "qwerty123", "password1", "password12", "password123", "passwort1");
     private static final int MIN_LENGTH = 8;
     private static final String ALLOWED_SPECIAL_CHARS = "@#$()_+-=[]{}|;:,.<>?/~!%^&*";
+
+    private static final List<String> ValidationResult = new ArrayList<>();
+    private static final String MIN_LINGTH_ISSUE  = "Your password is less than "+MIN_LENGTH+" characters";
+    private static final String DIGIT_ISSUE  = "Your password has no digits";
+    private static final String UPPER_LOWER_ISSUE  = "Your password hasn't both Uppercase & lowercase letters";
+    private static final String COMMON_ISSUE  = "Your password is weak (common)";
+    private static final String SPECIAL_CHAR_ISSUE = "Your password has no special character";
 
     public static boolean isEmpty(String password) {
         return password == null || password.isEmpty();
@@ -69,39 +90,44 @@ public class PasswordValidator {
     }
 
     public static boolean isValid(String password) {
-
+        ValidationResult.clear();
+        boolean valid = true;
         if(isEmpty(password)) {
-            return false;
+            valid =  false;
         } else {
             if(!hasMinLength(password, MIN_LENGTH)) {
-                return false;
-            } else if(!containsDigit(password)) {
-                return false;
-            } else if(!containsUpperAndLower(password)) {
-                return false;
-            } else if(!containsSpecialChar(password)) {
-                return false;
+                ValidationResult.add(MIN_LINGTH_ISSUE);
+                valid =  false;
+            }  if(!containsDigit(password)) {
+                ValidationResult.add(DIGIT_ISSUE);
+                valid =  false;
+            }  if(!containsUpperAndLower(password)) {
+                ValidationResult.add(UPPER_LOWER_ISSUE);
+                valid =  false;
+            }  if(!containsSpecialChar(password)) {
+                ValidationResult.add(SPECIAL_CHAR_ISSUE);
+                valid =  false;
             }
-            else return !isCommonPassword(password);
+             if(isCommonPassword(password)) {
+                ValidationResult.add(COMMON_ISSUE);
+                valid =  false;
+            }
         }
+        return valid;
     }
 
-    public static String validationResult(String password) {
-        if(isEmpty(password)) {
-            return "Your password is empty";
-        } else {
-            if(!hasMinLength(password, MIN_LENGTH)) {
-                return "Your password is less than 8 characters";
-            } else if(!containsDigit(password)) {
-                return "Your password has no digits";
-            } else if(!containsUpperAndLower(password)) {
-                return "Your password hasn't both Uppercase & lowercase letters";
-            }  else if(isCommonPassword(password)) {
-                return "Your password is weak (common)";
-            }else if(!containsSpecialChar(password)) {
-                return "Your password has no special character";
-            }
-            else return "your password is valid";
-        }
+
+    public static String generatePassword(int length, String allowedSpecial) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "abcdefghijklmnopqrstuvwxyz"
+                + "0123456789"
+                + allowedSpecial;
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder(length);
+        for(int i=0; i< length; i++) {
+            int index = random.nextInt(chars.length());
+            password.append(chars.charAt(index));
+        };
+        return password.toString();
     }
 }
