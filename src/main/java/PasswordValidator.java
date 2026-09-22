@@ -15,7 +15,7 @@ public class PasswordValidator {
 
     private static final Set<String> COMMON_PASSWORDS = Set.of("12345678", "password", "passwort", "adminadmin", "abc123456", "aa123456", "qwerty123", "password1", "password12", "password123", "passwort1");
     private static final int MIN_LENGTH = 8;
-    private static final String ALLOWED_SPECIAL_CHARS = "@#$()_+-=[]{}|;:,.<>?/~!%^&*`";
+    private static final String ALLOWED_SPECIAL_CHARS = "@#$()_+-=[]{}|;:,.<>?/~!%^&*";
 
     public static boolean isEmpty(String password) {
         return password == null || password.isEmpty();

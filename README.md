@@ -16,6 +16,7 @@ To pass validation, a password **must** meet all of the following rules:
 - **Numerics:** Contains at least one digit (`0-9`).
 - **Casing:** Includes both uppercase and lowercase letters (`a-z`, `A-Z`).
 - **Blacklist:** Is not present in the internal list of common, weak, or compromised passwords.
+- **Special Characters**: At least include one special character e.g. (`@#$()_+-=[]{}|;:,.<>?/~!%^&*`)
 
 ## Example Usage
 
