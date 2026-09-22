@@ -59,5 +59,28 @@ class PasswordValidatorTest {
     void containsUpperAndLower_shouldReturnExpected_byInput(String input, boolean expected) {
         assertEquals(expected, PasswordValidator.containsUpperAndLower(input));
     }
+
+    //isCommonPassword
+    @ParameterizedTest
+    @CsvSource({
+            "12345678, true",
+            "wqerrwr@we44, false",
+            "Password, true",
+            " password, true",
+            "Passwort, true",
+            " passwort1, true",
+            "adminAdmin, true",
+            "abc123456, true",
+            "ABC123456, true",
+            "aA123456, true",
+            "A@C198711, false",
+            "Password123, true",
+            "Password1, true",
+            "Password12, true",
+
+    })
+    void isCommonPassword_shouldReturnExpected_byInput(String input, boolean expected) {
+        assertEquals(expected, PasswordValidator.isCommonPassword(input));
+    }
 }
 
