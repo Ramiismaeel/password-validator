@@ -34,7 +34,7 @@ public class PasswordValidator {
     private static final String ALLOWED_SPECIAL_CHARS = "@#$()_+-=[]{}|;:,.<>?/~!%^&*";
 
     private static final List<String> ValidationResult = new ArrayList<>();
-    private static final String MIN_LINGTH_ISSUE  = "Your password is less than "+MIN_LENGTH+" characters";
+    private static final String MIN_LENGTH_ISSUE = "Your password is less than "+MIN_LENGTH+" characters";
     private static final String DIGIT_ISSUE  = "Your password has no digits";
     private static final String UPPER_LOWER_ISSUE  = "Your password hasn't both Uppercase & lowercase letters";
     private static final String COMMON_ISSUE  = "Your password is weak (common)";
@@ -96,7 +96,7 @@ public class PasswordValidator {
             valid =  false;
         } else {
             if(!hasMinLength(password, MIN_LENGTH)) {
-                ValidationResult.add(MIN_LINGTH_ISSUE);
+                ValidationResult.add(MIN_LENGTH_ISSUE);
                 valid =  false;
             }  if(!containsDigit(password)) {
                 ValidationResult.add(DIGIT_ISSUE);
