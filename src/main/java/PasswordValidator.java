@@ -8,7 +8,9 @@ public class PasswordValidator {
         Scanner scanner = new Scanner(System.in);
         String passwordInput = scanner.nextLine();
         boolean validPassword = isValid(passwordInput);
+        String message = validationResult(passwordInput);
         System.out.println(validPassword ? "Your password is valid.": "Your password is not valid.");
+        System.out.println(message);
         scanner.close();
 
     }
@@ -51,11 +53,7 @@ public class PasswordValidator {
     }
 
     public static boolean isCommonPassword(String password){
-        if(COMMON_PASSWORDS.contains(password.trim().toLowerCase(Locale.ROOT))) {
-            return true;
-        }
-        return false;
-
+        return COMMON_PASSWORDS.contains(password.trim().toLowerCase(Locale.ROOT));
 
     }
 
@@ -85,6 +83,25 @@ public class PasswordValidator {
                 return false;
             }
             else return !isCommonPassword(password);
+        }
+    }
+
+    public static String validationResult(String password) {
+        if(isEmpty(password)) {
+            return "Your password is empty";
+        } else {
+            if(!hasMinLength(password, MIN_LENGTH)) {
+                return "Your password is less than 8 characters";
+            } else if(!containsDigit(password)) {
+                return "Your password has no digits";
+            } else if(!containsUpperAndLower(password)) {
+                return "Your password hasn't both Uppercase & lowercase letters";
+            }  else if(isCommonPassword(password)) {
+                return "Your password is weak (common)";
+            }else if(!containsSpecialChar(password)) {
+                return "Your password has no special character";
+            }
+            else return "your password is valid";
         }
     }
 }
