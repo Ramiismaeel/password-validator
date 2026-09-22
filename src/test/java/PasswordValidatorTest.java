@@ -7,15 +7,15 @@ class PasswordValidatorTest {
 
     //isNotEmpty
     @Test
-    void isNotEmpty_shouldReturnTrue_by123() {
+    void isEmpty_shouldReturnFalse_by123() {
         assertFalse(PasswordValidator.isEmpty("123"));
     }
     @Test
-    void isNotEmpty_shouldReturnFalse_byNull() {
+    void isEmpty_shouldReturnTrue_byNull() {
         assertTrue(PasswordValidator.isEmpty(null));
     }
     @Test
-    void isNotEmpty_shouldReturnFalse_byEmpty() {
+    void isEmpty_shouldReturnTrue_byEmpty() {
         assertTrue(PasswordValidator.isEmpty(""));
     }
 
