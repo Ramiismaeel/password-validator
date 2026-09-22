@@ -82,5 +82,28 @@ class PasswordValidatorTest {
     void isCommonPassword_shouldReturnExpected_byInput(String input, boolean expected) {
         assertEquals(expected, PasswordValidator.isCommonPassword(input));
     }
+
+    //isValid
+    @ParameterizedTest
+    @CsvSource({
+            "12345678, false",
+            "wqerrwr@we44, false",
+            "wqeRrwr@we44, true",
+            " password, false",
+            "Passwort, false",
+            " passwort1, false",
+            "admin@Admin, false",
+            "abc123456, false",
+            "ABC123456, false",
+            "aA123456, false",
+            "A@C198711f, true",
+            "Password123, false",
+            "Password1, false",
+            "Password12, false",
+
+    })
+    void isValid_shouldReturnExpected_byInput(String input, boolean expected) {
+        assertEquals(expected, PasswordValidator.isValid(input));
+    }
 }
 

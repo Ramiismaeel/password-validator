@@ -4,6 +4,7 @@ import java.util.Set;
 public class PasswordValidator {
     static void main() {
 
+
     }
 
     private static final Set<String> COMMON_PASSWORDS = Set.of("12345678", "password", "passwort", "adminadmin", "abc123456", "aa123456", "qwerty123", "password1", "password12", "password123", "passwort1");
@@ -48,5 +49,20 @@ public class PasswordValidator {
         return false;
 
 
+    }
+
+    public static boolean isValid(String password) {
+        final int MIN = 8;
+        if(!isNotEmpty(password)) {
+            return false;
+        } else {
+            if(!hasMinLength(password, MIN)) {
+                return false;
+            } else if(!containsDigit(password)) {
+                return false;
+            } else if(!containsUpperAndLower(password)) {
+                return false;
+            } else return !isCommonPassword(password);
+        }
     }
 }
