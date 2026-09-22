@@ -31,5 +31,19 @@ class PasswordValidatorTest {
     void hasMinLength_shouldReturnExpected_byInput(String input, boolean expected) {
         assertEquals(expected, PasswordValidator.hasMinLength(input, 8));
     }
+
+    //containsDigit
+    @ParameterizedTest
+    @CsvSource({
+            "12345678, true",
+            "wqerrwr, false",
+            " aew3sdf , true",
+            "ssdf@3sew , true",
+            "ssdf@0sew , true"
+
+    })
+    void containsDigit_shouldReturnExpected_byInput(String input, boolean expected) {
+        assertEquals(expected, PasswordValidator.containsDigit(input));
+    }
 }
 
