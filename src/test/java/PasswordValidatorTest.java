@@ -45,5 +45,19 @@ class PasswordValidatorTest {
     void containsDigit_shouldReturnExpected_byInput(String input, boolean expected) {
         assertEquals(expected, PasswordValidator.containsDigit(input));
     }
+
+    //containsUpperAndLower
+    @ParameterizedTest
+    @CsvSource({
+            "12345678, false",
+            "wqerrwr, false",
+            " HELLO , false",
+            "TdTr@123, true",
+            "R rr  , true"
+
+    })
+    void containsUpperAndLower_shouldReturnExpected_byInput(String input, boolean expected) {
+        assertEquals(expected, PasswordValidator.containsUpperAndLower(input));
+    }
 }
 

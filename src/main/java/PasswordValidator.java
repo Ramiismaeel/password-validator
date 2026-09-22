@@ -22,6 +22,19 @@ public class PasswordValidator {
         }
         return hasDigit;
     }
-    public static boolean containsUpperAndLower(String password){ return  false;}
+    public static boolean containsUpperAndLower(String password){
+        char[] chars = password.toCharArray();
+        boolean hasUpper = false;
+        boolean hasLower = false;
+        for(char c :chars) {
+            if(Character.isLowerCase(c)) {
+                hasLower = true;
+            }
+            if(Character.isUpperCase(c)) {
+                hasUpper = true;
+            }
+        }
+        return hasUpper && hasLower;
+    }
     public static boolean isCommonPassword(String password){ return  false;}
 }
