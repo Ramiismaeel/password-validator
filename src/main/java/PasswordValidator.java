@@ -8,7 +8,8 @@ public class PasswordValidator {
     }
 
     private static final Set<String> COMMON_PASSWORDS = Set.of("12345678", "password", "passwort", "adminadmin", "abc123456", "aa123456", "qwerty123", "password1", "password12", "password123", "passwort1");
-    private static final int MIN = 8;
+    private static final int MIN_LENGTH = 8;
+    private static final String ALLOWED_SPECIAL_CHARS = "@#$()_+-=[]{}|;:,.<>?/~!%^&*`";
 
     public static boolean isEmpty(String password) {
         return password == null || password.isEmpty();
@@ -52,18 +53,32 @@ public class PasswordValidator {
 
     }
 
+    public static boolean containsSpecialChar(String password) {
+        char[] passwordsChars = password.toCharArray();
+
+        for(char c: passwordsChars) {
+            if (ALLOWED_SPECIAL_CHARS.indexOf(c) >= 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isValid(String password) {
 
         if(isEmpty(password)) {
             return false;
         } else {
-            if(!hasMinLength(password, MIN)) {
+            if(!hasMinLength(password, MIN_LENGTH)) {
                 return false;
             } else if(!containsDigit(password)) {
                 return false;
             } else if(!containsUpperAndLower(password)) {
                 return false;
-            } else return !isCommonPassword(password);
+            } else if(!containsSpecialChar(password)) {
+                return false;
+            }
+            else return !isCommonPassword(password);
         }
     }
 }

@@ -97,13 +97,39 @@ class PasswordValidatorTest {
             "ABC123456, false",
             "aA123456, false",
             "A@C198711f, true",
+            "AC198711f, false",
             "Password123, false",
             "Password1, false",
             "Password12, false",
+            "DG/1288wg, true",
 
     })
     void isValid_shouldReturnExpected_byInput(String input, boolean expected) {
         assertEquals(expected, PasswordValidator.isValid(input));
+    }
+
+    //containsSpecialChar
+    @ParameterizedTest
+    @CsvSource({
+            "12345678, false",
+            "wqerrwr@we44, true",
+            "wqeRrwr/we44, true",
+            " password, false",
+            "12342342, false",
+            "admin[Admin, true",
+            "?qwq, true",
+            "<ABC123456>, true",
+            "aA123456§, false",
+            "AC19871)1f, true",
+            "Password123, false",
+            "Password1, false",
+            "Password12, false",
+            "Password%12, true",
+            "Password;12, true",
+
+    })
+    void containsSpecialChar_shouldReturnExpected_byInput(String input, boolean expected) {
+        assertEquals(expected, PasswordValidator.containsSpecialChar(input));
     }
 }
 
