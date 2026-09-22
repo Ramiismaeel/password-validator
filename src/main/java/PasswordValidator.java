@@ -1,9 +1,15 @@
 import java.util.Locale;
+import java.util.Scanner;
 import java.util.Set;
 
 public class PasswordValidator {
     static void main() {
-
+        System.out.println("Enter your password!");
+        Scanner scanner = new Scanner(System.in);
+        String passwordInput = scanner.nextLine();
+        boolean validPassword = isValid(passwordInput);
+        System.out.println(validPassword ? "Your password is valid.": "Your password is not valid.");
+        scanner.close();
 
     }
 
